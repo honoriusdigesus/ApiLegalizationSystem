@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiLegalizationSystem.Data.Models;
 
-public partial class LegalizationSystemContext : DbContext
+public partial class LegalizationContext : DbContext
 {
-    public LegalizationSystemContext()
+    public LegalizationContext()
     {
     }
 
-    public LegalizationSystemContext(DbContextOptions<LegalizationSystemContext> options)
+    public LegalizationContext(DbContextOptions<LegalizationContext> options)
         : base(options)
     {
     }

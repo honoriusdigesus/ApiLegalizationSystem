@@ -20,7 +20,7 @@ namespace ApiLegalizationSystem.Domain.Mappers
         }
 
         //Convertimos el usuario tipo Data a tipo UserResponseDomain
-        public UserResponseDomain fromDataToDomain(User user)
+        public UserResponseDomain fromDataToUserResponseDomain(User user)
         {
             return new UserResponseDomain
             {

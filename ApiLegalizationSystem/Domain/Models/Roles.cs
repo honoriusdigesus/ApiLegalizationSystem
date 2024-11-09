@@ -1,4 +1,4 @@
-﻿namespace ApiLegalizationSystem.Domain.Utils
+﻿namespace ApiLegalizationSystem.Domain.Models
 {
     public enum Roles
     {

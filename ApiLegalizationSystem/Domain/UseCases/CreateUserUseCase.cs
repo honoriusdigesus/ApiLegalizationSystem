@@ -8,11 +8,11 @@ namespace ApiLegalizationSystem.Domain.UseCases
 {
     public class CreateUserUseCase
     {
-        private readonly LegalizationSystemContext _context;
+        private readonly LegalizationContext _context;
         private readonly UserDomainMapper _mapper;
         private readonly Helpper _helpper;
 
-        public CreateUserUseCase(LegalizationSystemContext context, UserDomainMapper mapper, Helpper helpper)
+        public CreateUserUseCase(LegalizationContext context, UserDomainMapper mapper, Helpper helpper)
         {
             _context = context;
             _mapper = mapper;
@@ -32,7 +32,7 @@ namespace ApiLegalizationSystem.Domain.UseCases
             user.Role = Roles.Field.ToString();
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
-            return _mapper.fromDataToDomain(user);
+            return _mapper.fromDataToUserResponseDomain(user);
         }
     }
 }
