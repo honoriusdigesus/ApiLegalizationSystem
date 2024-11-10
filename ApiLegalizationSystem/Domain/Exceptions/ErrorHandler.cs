@@ -15,7 +15,7 @@ namespace ApiLegalizationSystem.Domain.Exceptions
             _exceptionHandlers = new Dictionary<Type, (HttpStatusCode, ErrorResponse)>
             {
                     // Inyectamos los errores que queremos manejar
-                    { typeof(UserException), (HttpStatusCode.NotFound, new ErrorResponse(100, "USER_INVALID", null)) },
+                    { typeof(MyUserException), (HttpStatusCode.NotFound, new ErrorResponse(100, "USER_INVALID", null)) },
 
             };
         }

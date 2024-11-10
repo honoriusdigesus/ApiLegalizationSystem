@@ -23,11 +23,11 @@ namespace ApiLegalizationSystem.Domain.UseCases
         {
             if (userDomain == null)
             {
-                throw new UserException("El usuario no puede ser nulo");
+                throw new MyUserException("El usuario no puede ser nulo");
             }
 
             var user = _mapper.fromDomainToData(userDomain);
-            user.PasswordHash = _helpper.encryptTokenSHA256(user.PasswordHash);
+            user.PasswordHash = _helpper.EncryptPassword(user.PasswordHash);
             //Capturar el string del Enum Role
             user.Role = Roles.Field.ToString();
             _context.Users.Add(user);

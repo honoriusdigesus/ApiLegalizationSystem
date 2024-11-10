@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ApiLegalizationSystem.Domain.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<LegalizationContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("QuerySQLSetting"));
+});
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ErrorHandler>(); // Agregar el filtro de excepciones personalizado
 });
 
 // Inject the UserDomainMapper, CreateUserUseCase and Helpper
@@ -36,23 +42,23 @@ catch (Exception)
 builder.Services.AddSingleton<UtilsJwt>();
 
 builder.Services.AddAuthentication(config => {
-    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // autenticación predeterminada para la aplicación
-    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // esquema de desafío predeterminado para la aplicación
-}).AddJwtBearer(config => { // agregar autenticación jwt
-    config.RequireHttpsMetadata = true; // requiere que las solicitudes se realicen a través de HTTPS
+    config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // autenticaciï¿½n predeterminada para la aplicaciï¿½n
+    config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // esquema de desafï¿½o predeterminado para la aplicaciï¿½n
+}).AddJwtBearer(config => { // agregar autenticaciï¿½n jwt
+    config.RequireHttpsMetadata = true; // requiere que las solicitudes se realicen a travï¿½s de HTTPS
     config.SaveToken = true; // guardar el token
-    config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters // parámetros de validación del token
+    config.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters // parï¿½metros de validaciï¿½n del token
     {
         ValidateIssuerSigningKey = true, // validar la clave del emisor
         ValidateIssuer = false, // no validar el emisor
         ValidateAudience = false, // no validar la audiencia
         ValidateLifetime = true, // validar el tiempo de vida
         ClockSkew = TimeSpan.Zero, // tiempo de espera
-        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)), // clave de emisión
+        IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)), // clave de emisiï¿½n
     };
 });
 
-// Configuración de CORS para permitir solicitudes desde localhost:3000
+// Configuraciï¿½n de CORS para permitir solicitudes desde localhost:3000
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("NewPolicy",
